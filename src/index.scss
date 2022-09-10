@@ -18,3 +18,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.sign-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 75%;
+  margin: auto;
+}

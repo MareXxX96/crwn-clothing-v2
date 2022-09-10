@@ -1,6 +1,6 @@
 import { async } from "@firebase/util";
 import { useState } from "react";
-import {createUserDocWithEmailAndPassword, auth} from '../../utils/firebase/firebase.utils'
+import {createUserDocWithEmailAndPassword, auth, signInWithGooglePopup} from '../../utils/firebase/firebase.utils'
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import FormInput from "../form-input/form-input.component";
 import './sign-up-form.styles.scss'
@@ -48,7 +48,7 @@ const SignUpForm = () => {
     }
 
     return(
-        <div>
+        <div className="sign-up-container">
             <h2>Don't have an account yet?</h2>
             <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -61,6 +61,7 @@ const SignUpForm = () => {
                 <FormInput required label="Confirm Password" type="password" onChange={handleChange} name='confirmPassword' value={confirmPassword}/>
                 <Button type="submit">Sign Up</Button>
             </form>
+            
         </div>
     )
 }
