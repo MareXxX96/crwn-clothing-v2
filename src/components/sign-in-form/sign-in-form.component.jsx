@@ -1,10 +1,11 @@
 import { async } from "@firebase/util";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { auth, signInWithGooglePopup, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils'
 import {signInWithEmailAndPassword} from "firebase/auth";
 import FormInput from "../form-input/form-input.component";
 import './sign-in-form.styles.scss'
-import Button from '../button/button.component'
+import Button, {BUTTON_TYPE_CLASSES} from '../button/button.component'
+import { UserContext } from "../../contexts/user.context";
 
 const loginFormFields = {
     email : '',
@@ -15,6 +16,7 @@ const SignInForm = () => {
 
     const [formFields, setFormFields] = useState(loginFormFields)
     const { email, password } = formFields
+    const { setCurrentUser } = useContext(UserContext)
 
     const resetFormFields = () => {
         setFormFields(loginFormFields)
@@ -41,7 +43,8 @@ const SignInForm = () => {
         try {
             const {user} = await signInWithEmailAndPassword(auth, email, password)
             resetFormFields()
-            console.log(user)
+            setCurrentUser(user)
+            console.log(auth)
         } catch (err){
             if (err == 'auth/wrong-password') {
                 alert('Wrong email or password')
@@ -60,7 +63,7 @@ const SignInForm = () => {
                 <FormInput required label="Password" type="password" onChange={handleChange} name='password'value={password}/>
                 <div className="buttons-container">
                 <Button type="submit">Sign In</Button>
-                <Button buttonType='google' onClick={googleSignIn}>Google Sign In</Button>
+                <Button buttonType={BUTTON_TYPE_CLASSES.google} onClick={googleSignIn}>Google Sign In</Button>
                 </div>
             </form>
         </div>

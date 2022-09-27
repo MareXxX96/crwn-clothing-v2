@@ -6,6 +6,7 @@ import FormInput from "../form-input/form-input.component";
 import './sign-up-form.styles.scss'
 import Button from '../button/button.component'
 
+
 const defaultFormFields = {
     displayName : '',
     email : '',
@@ -18,11 +19,15 @@ const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields)
     const {displayName, email, password, confirmPassword} = formFields
 
-    console.log(formFields)
+   
 
     const handleChange = (event) => {
         const {name, value} = event.target;
         setFormFields({...formFields, [name]: value})
+    }
+
+    const resetFormFields = () => {
+        setFormFields(defaultFormFields)
     }
 
     const handleSubmit = async(event) => {
@@ -40,6 +45,7 @@ const SignUpForm = () => {
             await updateProfile(user, {displayName:displayName})
             console.log(user)
             const userDocRef = await createUserDocWithEmailAndPassword(user)
+            resetFormFields()
         } catch (err){
             if(err.code == 'auth/email-already-in-use') {
                 alert('Email already in use')

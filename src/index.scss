@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding: 20px 40px;
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,6 +24,6 @@ a {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 75%;
-  margin: auto;
+  margin: 0;
+  flex-wrap: row wrap;
 }
